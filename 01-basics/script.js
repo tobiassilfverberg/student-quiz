@@ -26,8 +26,10 @@ let lastName = "Silfverberg";
 let helloMsg = ("Hello " + firstName + " " + lastName);
 console.log(helloMsg);
 
-var dontUseVar = "Använd inte var!"
+var dontUseVar = "Don\'t use var!"
 console.log(dontUseVar);
 
-const age = "20";
-console.log(age);
+/* const year = new Date(2021);
+const born = 2001;
+const age = year - born;
+console.log(age); */
