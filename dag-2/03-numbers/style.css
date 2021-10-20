@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightblue;
+}
+
+h1 {
+    padding: 5px;
+    color: palevioletred;
+    border: 2px solid white;
+    margin: 10px;
+    text-align: center;
+}
