@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "..\\private-projects"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\HTML-CSS"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "HTML-CSS"
+	}
+}
