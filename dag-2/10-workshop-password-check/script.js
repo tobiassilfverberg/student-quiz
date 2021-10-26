@@ -7,7 +7,7 @@
 let password;
 // password = "password"; // inte giltigt
 // password = "tjenare?mannen";
- password = "p@ssw%rd"; // giltigt
+password = "p@ssw%rd"; // giltigt
 // password = "pa$$word"; // giltigt
 // password = "secretpassword"; // inte giltigt
 // password = "secret-password"; // giltigt
@@ -37,11 +37,11 @@ if (password.length >= 16) {
 } else if (password.length >= 12 && password.includes(`-`)) {
   console.log("Your password is valid:", password);
 } else if (password.length >= 8) {
-  let valid = specialChars.some(char => password.includes(char)); 
+  let valid = specialChars.some((char) => password.includes(char));
   if (valid) {
-      console.log("Password is valid");
+    console.log("Password is valid");
   } else {
-      console.log("Password not valid");
+    console.log("Password not valid");
   }
 } else {
   console.log("Password not valid");

@@ -6,17 +6,17 @@ let running = true; //så att while-loopen alltid kör
 
 while (running) {
   //starta loop
-  let answer = prompt("Gissa på ett tal mellan 1-10"); //be användaren gissa på ett tal 1-10
+  guesses++;
+  let answer = Number(prompt("Gissa på ett tal mellan 1-10")); //be användaren gissa på ett tal 1-10
 
-  if (answer == 0) {
+  if (answer === 0) {
     //om svaret är 0
-    running = false; //loopen ska inte köra mer
+    alert(`Din gissning var ${answer}, spelet avslutas`);
     break; //bryt loopen och stäng ner
   }
 
-  if (answer == number) {
+  if (answer === number) {
     //om gissningen är rätt
-    guesses++; //öka antalet gissningar med 1
 
     alert(
       //visa meddelande som säger att svaret var rätt, antal gissnignar.
@@ -38,5 +38,4 @@ while (running) {
     //annars om svaret är för högt
     alert("Fel svar, du gissade för högt. Gissa igen");
   }
-  guesses++; //öka antalet gissningar
 }
