@@ -26,7 +26,7 @@
  *
  */
 
-let passwords = [
+const passwords = [
   "password", // inte giltigt
   "tjenare?mannen", //giltigt
   "p@ssw%rd", // giltigt
