@@ -11,8 +11,9 @@ const barksby = {
     name: "Mr Beans",
     age: 54,
   },
-  speak: function () {
-    console.log("Wooof!");
+  sound: "Woooof!",
+  speak() {
+    console.log(this.sound);
   },
 };
 
