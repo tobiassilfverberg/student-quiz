@@ -36,15 +36,14 @@ const checkPassword = function (password) {
     result = false;
   }
   if (result) {
-    logPassword.innerHTML += `Ditt lösenord: ${userPassword}, är godkänt!`;
+    logPassword.innerHTML = `Ditt lösenord: ${userPassword}, är godkänt!`;
   } else {
-    logPassword.innerHTML += `Ditt lösenord: ${userPassword}, är inte godkänt!`;
+    logPassword.innerHTML = `Ditt lösenord: ${userPassword}, är inte godkänt!`;
   }
 };
 
 let userPassword = document.querySelector("#passwordField").value;
 document.querySelector("#myBtn").addEventListener("click", () => {
-  logPassword.innerHTML = "";
   checkPassword(userPassword);
 });
 document.querySelector("#passwordField").addEventListener("change", () => {
