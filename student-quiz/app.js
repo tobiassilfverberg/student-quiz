@@ -156,12 +156,14 @@ const students = [
 		"image": "images/students/wiktoria-dobrzewinska.jpg",
 	},
 ];
+let studentToGuess;
 
-// Clone original array to make a copy array
-const shuffledStudents =[...students];
+const generateStudentToGuess = () => {
+	// Clone original array to make a copy array
+	const shuffledStudents =[...students];
 
-// Fisher-Yates shuffle function
-const shuffleArray = array => {
+	// Fisher-Yates shuffle function
+	const shuffleArray = array => {
 	for (let i = array.length - 1; i > 0; i--) {
 	  const j = Math.floor(Math.random() * (i + 1));
 	  const temp = array[i];
@@ -173,11 +175,6 @@ const shuffleArray = array => {
 shuffleArray(shuffledStudents);
 console.log("Shuffled students list:", shuffledStudents);
 
-// Declare variabels 
-const imageHolderEl = document.querySelector("#classmateImg");
-const buttonsEl = document.querySelector("#buttons");
-const rightAnswersEl = document.querySelector("#rightAnswers");
-
 // Create small array of four students 
 let studentAlternatives = [];
 studentAlternatives.push(shuffledStudents.slice(0, 4));
@@ -185,26 +182,36 @@ studentAlternatives.push(shuffledStudents.slice(0, 4));
 let studentsToGuessFrom = studentAlternatives[0];
 
 // Take out one single person to display and guess their name
-let studentToGuess = studentsToGuessFrom[0];
+studentToGuess = studentsToGuessFrom[0];
 imageHolderEl.setAttribute("src", studentToGuess.image);
 
 // Shuffle students to guess from so correct answer is different position every time
 shuffleArray(studentsToGuessFrom);
 
+// Clear buttonsEl before rendering new names
+buttonsEl.innerHTML = "";
+
 // Render buttons to HTML page with names of students
 studentsToGuessFrom.forEach(student => {
 	buttonsEl.innerHTML += `<button class="button">${student.name}</button>`;
 })
+}
 
+// Declare objects from DOM
+const imageHolderEl = document.querySelector("#classmateImg");
+const buttonsEl = document.querySelector("#buttons");
+const rightAnswersEl = document.querySelector("#rightAnswers");
+const nextButtonEl = document.querySelector("#next");
+
+generateStudentToGuess();
 let rightAnswers = 0;
 
 buttonsEl.addEventListener('click', e => {
 	if (e.target.tagName === "BUTTON") {
 		if (e.target.innerText === studentToGuess.name) {
 			e.target.classList.add("success");
-			console.log("Du gissade rätt!");
 			rightAnswers++;
-			rightAnswersEl.innerText += `Du har ${rightAnswers} rätt`;
+			rightAnswersEl.innerText = `Du har ${rightAnswers} rätt`;
 		} else {
 			e.target.classList.add("fail");
 			console.log("Du gissade fel"); 

@@ -39,3 +39,7 @@ img {
 #rightAnswers {
     margin-top: 25px;
 }
+
+#next {
+    display: none;
+}
