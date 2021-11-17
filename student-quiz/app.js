@@ -175,22 +175,27 @@ console.log("Shuffled students list:", shuffledStudents);
 
 // Declare variabels 
 const imageHolderEl = document.querySelector("#classmateImg");
-const buttonsEl = document.querySelectorAll("#buttons");
+const buttonsEl = document.querySelector("#buttons");
 
 // Create small array of four students 
 let studentAlternatives = [];
 studentAlternatives.push(shuffledStudents.slice(0, 4));
 
 let studentsToGuessFrom = studentAlternatives[0];
-console.log("Students to guess from:", studentsToGuessFrom);
 
 // Take out one single person to display and guess their name
 let studentToGuess = studentsToGuessFrom[0];
-console.log("Student to guess:", studentToGuess);
 imageHolderEl.setAttribute("src", studentToGuess.image);
 
-for (let i = 0; i < studentsToGuessFrom.length; i++) {
-	buttonsEl.forEach(button => {
-		button.innerHTML += `<button class="button">${studentsToGuessFrom[i].name}</button>`;
-	})
-}
+// Shuffle students to guess from so correct answer is different position every time
+shuffleArray(studentsToGuessFrom);
+
+studentsToGuessFrom.forEach(student => {
+	buttonsEl.innerHTML += `<button class="button">${student.name}</button>`;
+})
+
+buttonsEl.addEventListener('click', e => {
+	if (e.target === "BUTTON") {
+		console.log("THats a button");
+	}
+});
