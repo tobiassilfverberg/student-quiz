@@ -161,15 +161,19 @@ const students = [
 const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
-const nextButtonEl = document.querySelector("#next");
+const rightOrWrongEl = document.querySelector("#rightOrWrong");
+let displayWrongAnswers = document.querySelector("#wrong");
 let rightAnswerEl = document.querySelector("#rightAnswer");
-let rightAnswers = 0;
+let numberOfAnswers = 0;
 let studentToGuess;
+let guessedStudents = [];
+let correctGuesses = [];
+let wrongGuesses = [];
 let amountOfGuesses = 0;
 
 const generateStudentToGuess = () => {
 	// Clone original array to make a copy array
-	const shuffledStudents =[...students];
+	let shuffledStudents =[...students];
 
 	// Fisher-Yates shuffle function
 	const shuffleArray = array => {
@@ -186,13 +190,21 @@ const generateStudentToGuess = () => {
 	// Create small array of four students 
 	let studentAlternatives = [];
 	studentAlternatives.push(shuffledStudents.slice(0, 4));
-
 	let studentsToGuessFrom = studentAlternatives[0];
 
 	// Take out one single person to display and guess their name
 	studentToGuess = studentsToGuessFrom[0];
 	imageHolderEl.setAttribute("src", studentToGuess.image);
 	imageHolderEl.setAttribute("alt", "classmate to guess");
+	
+	// Create array with all the students I guessed so far
+	guessedStudents.push(studentToGuess);
+
+	// Find studentToGuess in original array and delete from it, so he/she wont appear again
+	// shuffledStudents.filter(student => {
+	// 	return student !== student;
+	// })
+	// console.log(shuffledStudents);
 
 	// Shuffle students to guess from so correct answer is different position every time
 	shuffleArray(studentsToGuessFrom);
@@ -206,7 +218,6 @@ const generateStudentToGuess = () => {
 })
 }
 
-
 startGameEl.addEventListener('click', () => {
 	generateStudentToGuess();
 	startGameEl.style.display = "none";
@@ -215,7 +226,12 @@ startGameEl.addEventListener('click', () => {
 buttonsEl.addEventListener('click', e => {
 	if (e.target.tagName === "BUTTON") {
 		if (e.target.innerText === studentToGuess.name) {
-			rightAnswers++;
+			numberOfAnswers++;
+			correctGuesses.push(studentToGuess);
+			console.log("Correct guesses", correctGuesses);
+		} else {
+			wrongGuesses.push(studentToGuess);
+			console.log("Wrong gueses:", wrongGuesses);
 		}
 		amountOfGuesses++;
 		if (amountOfGuesses < 10) {
@@ -224,20 +240,19 @@ buttonsEl.addEventListener('click', e => {
 			imageHolderEl.setAttribute("src", "");
 			imageHolderEl.setAttribute("alt", "");
 			buttonsEl.innerHTML = "";
-			if (rightAnswers === 10) {
-				rightAnswerEl.innerHTML += `Grattis, du fick alla rätt! ${rightAnswers}/10!`;
-			} else if (rightAnswers < 10 && rightAnswers > 6) {
-				rightAnswerEl.innerHTML += `Helt okej, du fick ${rightAnswers}/10!`;
-			} else if (rightAnswers < 6 && rightAnswers > 2) {
-				rightAnswerEl.innerHTML += `Nja, inte riktigt godkänt, du fick ${rightAnswers}/10!`;
+			if (numberOfAnswers === 10) {
+				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${numberOfAnswers}/10! </h2>`;
+			} else if (numberOfAnswers < 10 && numberOfAnswers > 6) {
+				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${numberOfAnswers}/10! </h2>`;
+				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
+				wrongGuesses.forEach(wrongGuess => {
+					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
+				})
+			} else if (numberOfAnswers < 6 && numberOfAnswers > 2) {
+				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${numberOfAnswers}/10! </h2>`;
 			} else {
-				rightAnswerEl.innerHTML += `Du är tyvärr ganska dålig. Du fick ${rightAnswers}/10. Du borde spela någon gång till.`;
+				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${numberOfAnswers}/10. Du borde spela någon gång till. </h2>`;
 			}
 		}
 	}
 });
-
-// nextButtonEl.addEventListener('click', () => {
-// 	nextButtonEl.style.display = "none";
-// 	generateStudentToGuess();
-// })

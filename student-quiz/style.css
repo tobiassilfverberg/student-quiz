@@ -49,9 +49,6 @@ img {
     margin-top: 25px;
 }
 
-#next {
-    display: none;
-    margin-top: 10px;
-    height: 40px;
-    width: 150px;
+#rightOrWrong {
+    margin: 10px;
 }
