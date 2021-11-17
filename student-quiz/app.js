@@ -156,7 +156,16 @@ const students = [
 		"image": "images/students/wiktoria-dobrzewinska.jpg",
 	},
 ];
+
+// Declare objects from DOM
+const startGameEl = document.querySelector("#startGame");
+const imageHolderEl = document.querySelector("#classmateImg");
+const buttonsEl = document.querySelector("#buttons");
+const nextButtonEl = document.querySelector("#next");
+let rightAnswerEl = document.querySelector("#rightAnswer");
+let rightAnswers = 0;
 let studentToGuess;
+let amountOfGuesses = 0;
 
 const generateStudentToGuess = () => {
 	// Clone original array to make a copy array
@@ -164,67 +173,71 @@ const generateStudentToGuess = () => {
 
 	// Fisher-Yates shuffle function
 	const shuffleArray = array => {
-	for (let i = array.length - 1; i > 0; i--) {
-	  const j = Math.floor(Math.random() * (i + 1));
-	  const temp = array[i];
-	  array[i] = array[j];
-	  array[j] = temp;
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			const temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
 	}
-  }
-// Shuffle the array
-shuffleArray(shuffledStudents);
+	// Shuffle the array
+	shuffleArray(shuffledStudents);
 
-// Create small array of four students 
-let studentAlternatives = [];
-studentAlternatives.push(shuffledStudents.slice(0, 4));
+	// Create small array of four students 
+	let studentAlternatives = [];
+	studentAlternatives.push(shuffledStudents.slice(0, 4));
 
-let studentsToGuessFrom = studentAlternatives[0];
+	let studentsToGuessFrom = studentAlternatives[0];
 
-// Take out one single person to display and guess their name
-studentToGuess = studentsToGuessFrom[0];
-imageHolderEl.setAttribute("src", studentToGuess.image);
+	// Take out one single person to display and guess their name
+	studentToGuess = studentsToGuessFrom[0];
+	imageHolderEl.setAttribute("src", studentToGuess.image);
+	imageHolderEl.setAttribute("alt", "classmate to guess");
 
-// Shuffle students to guess from so correct answer is different position every time
-shuffleArray(studentsToGuessFrom);
+	// Shuffle students to guess from so correct answer is different position every time
+	shuffleArray(studentsToGuessFrom);
 
-// Clear buttonsEl before rendering new names
-buttonsEl.innerHTML = "";
+	// Clear buttonsEl before rendering new names
+	buttonsEl.innerHTML = "";
 
-// Render buttons to HTML page with names of students
-studentsToGuessFrom.forEach(student => {
-	buttonsEl.innerHTML += `<button id="answer" class="button">${student.name}</button>`;
+	// Render buttons to HTML page with names of students
+	studentsToGuessFrom.forEach(student => {
+	buttonsEl.innerHTML += `<button class="button answer">${student.name}</button>`;
 })
 }
 
-// Declare objects from DOM
-const startGameEl = document.querySelector("#startGame");
-const imageHolderEl = document.querySelector("#classmateImg");
-const buttonsEl = document.querySelector("#buttons");
-// const answerButtonsEl = document.querySelectorAll("#answer");
-const rightAnswersEl = document.querySelector("#rightAnswers");
-const nextButtonEl = document.querySelector("#next");
-let rightAnswers = 0;
 
 startGameEl.addEventListener('click', () => {
 	generateStudentToGuess();
 	startGameEl.style.display = "none";
 });
 
-
 buttonsEl.addEventListener('click', e => {
 	if (e.target.tagName === "BUTTON") {
 		if (e.target.innerText === studentToGuess.name) {
-			e.target.classList.add("success");
 			rightAnswers++;
-			rightAnswersEl.innerText = `Du har ${rightAnswers} rätt`;
-			nextButtonEl.style.display = "block";
+		}
+		amountOfGuesses++;
+		if (amountOfGuesses < 10) {
+			generateStudentToGuess();
 		} else {
-			e.target.classList.add("fail");
+			imageHolderEl.setAttribute("src", "");
+			imageHolderEl.setAttribute("alt", "");
+			buttonsEl.innerHTML = "";
+			if (rightAnswers === 10) {
+				rightAnswerEl.innerHTML += `Grattis, du fick alla rätt! ${rightAnswers}/10!`;
+			} else if (rightAnswers < 10 && rightAnswers > 6) {
+				rightAnswerEl.innerHTML += `Helt okej, du fick ${rightAnswers}/10!`;
+			} else if (rightAnswers < 6 && rightAnswers > 2) {
+				rightAnswerEl.innerHTML += `Nja, inte riktigt godkänt, du fick ${rightAnswers}/10!`;
+			} else {
+				rightAnswerEl.innerHTML += `Du är tyvärr ganska dålig. Du fick ${rightAnswers}/10. Du borde spela någon gång till.`;
+			}
 		}
 	}
 });
 
-nextButtonEl.addEventListener('click', () => {
-	nextButtonEl.style.display = "none";
-	generateStudentToGuess();
-})
+// nextButtonEl.addEventListener('click', () => {
+// 	nextButtonEl.style.display = "none";
+// 	generateStudentToGuess();
+// })
