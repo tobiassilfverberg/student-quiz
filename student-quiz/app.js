@@ -173,7 +173,6 @@ const generateStudentToGuess = () => {
   }
 // Shuffle the array
 shuffleArray(shuffledStudents);
-console.log("Shuffled students list:", shuffledStudents);
 
 // Create small array of four students 
 let studentAlternatives = [];
@@ -193,18 +192,24 @@ buttonsEl.innerHTML = "";
 
 // Render buttons to HTML page with names of students
 studentsToGuessFrom.forEach(student => {
-	buttonsEl.innerHTML += `<button class="button">${student.name}</button>`;
+	buttonsEl.innerHTML += `<button id="answer" class="button">${student.name}</button>`;
 })
 }
 
 // Declare objects from DOM
+const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
+// const answerButtonsEl = document.querySelectorAll("#answer");
 const rightAnswersEl = document.querySelector("#rightAnswers");
 const nextButtonEl = document.querySelector("#next");
-
-generateStudentToGuess();
 let rightAnswers = 0;
+
+startGameEl.addEventListener('click', () => {
+	generateStudentToGuess();
+	startGameEl.style.display = "none";
+});
+
 
 buttonsEl.addEventListener('click', e => {
 	if (e.target.tagName === "BUTTON") {
@@ -212,9 +217,14 @@ buttonsEl.addEventListener('click', e => {
 			e.target.classList.add("success");
 			rightAnswers++;
 			rightAnswersEl.innerText = `Du har ${rightAnswers} rätt`;
+			nextButtonEl.style.display = "block";
 		} else {
 			e.target.classList.add("fail");
-			console.log("Du gissade fel"); 
 		}
 	}
 });
+
+nextButtonEl.addEventListener('click', () => {
+	nextButtonEl.style.display = "none";
+	generateStudentToGuess();
+})
