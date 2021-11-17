@@ -171,6 +171,15 @@ let correctGuesses = [];
 let wrongGuesses = [];
 let amountOfGuesses = 0;
 
+// Function to remove students from array "students" so you cant guess on the same person twice
+function removeItemOnce(array, value) {
+	var index = array.indexOf(value);
+	if (index > -1) {
+	  arr.splice(index, 1);
+	}
+	return array;
+  }
+
 const generateStudentToGuess = () => {
 	// Clone original array to make a copy array
 	let shuffledStudents =[...students];
@@ -194,17 +203,15 @@ const generateStudentToGuess = () => {
 
 	// Take out one single person to display and guess their name
 	studentToGuess = studentsToGuessFrom[0];
+	imageHolderEl.style.display = "block";
 	imageHolderEl.setAttribute("src", studentToGuess.image);
 	imageHolderEl.setAttribute("alt", "classmate to guess");
 	
 	// Create array with all the students I guessed so far
 	guessedStudents.push(studentToGuess);
 
-	// Find studentToGuess in original array and delete from it, so he/she wont appear again
-	// shuffledStudents.filter(student => {
-	// 	return student !== student;
-	// })
-	// console.log(shuffledStudents);
+	// Call function remove to remove studentToGuess from original array students
+	removeItemOnce(students, studentToGuess);
 
 	// Shuffle students to guess from so correct answer is different position every time
 	shuffleArray(studentsToGuessFrom);
@@ -228,10 +235,8 @@ buttonsEl.addEventListener('click', e => {
 		if (e.target.innerText === studentToGuess.name) {
 			numberOfAnswers++;
 			correctGuesses.push(studentToGuess);
-			console.log("Correct guesses", correctGuesses);
 		} else {
 			wrongGuesses.push(studentToGuess);
-			console.log("Wrong gueses:", wrongGuesses);
 		}
 		amountOfGuesses++;
 		if (amountOfGuesses < 10) {
@@ -241,6 +246,7 @@ buttonsEl.addEventListener('click', e => {
 			imageHolderEl.setAttribute("alt", "");
 			buttonsEl.innerHTML = "";
 			if (numberOfAnswers === 10) {
+				imageHolderEl.setAttribute("src", "images/fireworks.jpg");
 				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${numberOfAnswers}/10! </h2>`;
 			} else if (numberOfAnswers < 10 && numberOfAnswers > 6) {
 				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${numberOfAnswers}/10! </h2>`;
@@ -250,8 +256,17 @@ buttonsEl.addEventListener('click', e => {
 				})
 			} else if (numberOfAnswers < 6 && numberOfAnswers > 2) {
 				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${numberOfAnswers}/10! </h2>`;
+				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
+				wrongGuesses.forEach(wrongGuess => {
+					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
+				})
 			} else {
+				imageHolderEl.setAttribute("src", "images/sadface.jpg");
 				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${numberOfAnswers}/10. Du borde spela någon gång till. </h2>`;
+				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
+				wrongGuesses.forEach(wrongGuess => {
+					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
+				})
 			}
 		}
 	}

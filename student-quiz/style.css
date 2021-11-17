@@ -11,6 +11,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -28,6 +29,9 @@ h1 {
 
 img {
     margin-bottom: 20px;
+    height: 500px;
+    width: 500px;
+    display: none;
 }
 
 .button {
@@ -35,10 +39,15 @@ img {
     height: 50px;
     margin: 0px 10px 0px 10px;
     color:black;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .success {
     background-color: green;
+}
+
+ul {
+    text-align: center;
 }
 
 .fail {
@@ -50,5 +59,9 @@ img {
 }
 
 #rightOrWrong {
-    margin: 10px;
+    margin: 20px;
+}
+
+li {
+    list-style-type: none;
 }
