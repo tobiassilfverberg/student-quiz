@@ -1,7 +1,7 @@
 * {
     margin: 0 auto;
     padding: 0;
-    scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
@@ -37,9 +37,15 @@ img {
 .button {
     width: 175px;
     height: 50px;
-    margin: 0px 10px 0px 10px;
+    margin: 10px 10px 10px 10px;
     color:black;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .success {
@@ -64,4 +70,30 @@ ul {
 
 li {
     list-style-type: none;
+}
+
+@media only screen and (max-width: 576px) {
+    body {
+        padding: 5px;
+        text-align: center;
+    }
+    img {
+        height: auto;
+        width: 100%;
+    }
+    #buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #buttons > button {
+        margin: 10px 10px 10px 10px;
+    }
+}
+
+@media only screen and (min-width: 780px) {
+    #buttons {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
 }

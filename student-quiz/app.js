@@ -172,13 +172,13 @@ let wrongGuesses = [];
 let amountOfGuesses = 0;
 
 // Function to remove students from array "students" so you cant guess on the same person twice
-function removeItemOnce(array, value) {
+const removeItemOnce = (array, value) => {
 	var index = array.indexOf(value);
 	if (index > -1) {
 	  array.splice(index, 1);
 	}
 	return array;
-  }
+};
 
 const generateStudentToGuess = () => {
 	// Clone original array to make a copy array
