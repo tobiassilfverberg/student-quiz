@@ -27,3 +27,15 @@ img {
     margin: 0px 10px 0px 10px;
     color:black;
 }
+
+.success {
+    background-color: green;
+}
+
+.fail {
+    background-color: red;;
+}
+
+#rightAnswers {
+    margin-top: 25px;
+}

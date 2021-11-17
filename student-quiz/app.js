@@ -176,6 +176,7 @@ console.log("Shuffled students list:", shuffledStudents);
 // Declare variabels 
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
+const rightAnswersEl = document.querySelector("#rightAnswers");
 
 // Create small array of four students 
 let studentAlternatives = [];
@@ -190,12 +191,23 @@ imageHolderEl.setAttribute("src", studentToGuess.image);
 // Shuffle students to guess from so correct answer is different position every time
 shuffleArray(studentsToGuessFrom);
 
+// Render buttons to HTML page with names of students
 studentsToGuessFrom.forEach(student => {
 	buttonsEl.innerHTML += `<button class="button">${student.name}</button>`;
 })
 
+let rightAnswers = 0;
+
 buttonsEl.addEventListener('click', e => {
-	if (e.target === "BUTTON") {
-		console.log("THats a button");
+	if (e.target.tagName === "BUTTON") {
+		if (e.target.innerText === studentToGuess.name) {
+			e.target.classList.add("success");
+			console.log("Du gissade rätt!");
+			rightAnswers++;
+			rightAnswersEl.innerText += `Du har ${rightAnswers} rätt`;
+		} else {
+			e.target.classList.add("fail");
+			console.log("Du gissade fel"); 
+		}
 	}
 });
