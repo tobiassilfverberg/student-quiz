@@ -68,6 +68,16 @@ ul {
     margin: 20px;
 }
 
+#startOver {
+    height: 100px;
+    width: 200px;
+    background-color: yellow;
+    font-family: 'Indie Flower', cursive;
+    font-size: xx-large;
+    cursor: pointer;
+    display: none;
+}
+
 li {
     list-style-type: none;
 }
