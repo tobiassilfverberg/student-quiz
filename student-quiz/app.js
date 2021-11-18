@@ -165,7 +165,6 @@ const rightOrWrongEl = document.querySelector("#rightOrWrong");
 const startOverEl = document.querySelector("#startOver");
 let displayWrongAnswers = document.querySelector("#wrong");
 let rightAnswerEl = document.querySelector("#rightAnswer");
-let numberOfAnswers = 0;
 let studentToGuess;
 let guessedStudents = [];
 let correctGuesses = [];
@@ -179,6 +178,13 @@ const removeItemOnce = (array, value) => {
 	  array.splice(index, 1);
 	}
 	return array;
+};
+
+// Function to display incorrect answers
+const showWrongAnswers = () => {
+	wrongGuesses.forEach(wrongGuess => {
+		wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
+	})
 };
 
 const generateStudentToGuess = () => {
@@ -198,12 +204,10 @@ const generateStudentToGuess = () => {
 	shuffleArray(shuffledStudents);
 
 	// Create small array of four students 
-	let studentAlternatives = [];
-	studentAlternatives.push(shuffledStudents.slice(0, 4));
-	let studentsToGuessFrom = studentAlternatives[0];
+	let studentAlternatives = shuffledStudents.slice(0, 4).map(students => students);
 
 	// Take out one single person to display and guess their name
-	studentToGuess = studentsToGuessFrom[0];
+	studentToGuess = studentAlternatives[0];
 	imageHolderEl.style.display = "block";
 	imageHolderEl.setAttribute("src", studentToGuess.image);
 	imageHolderEl.setAttribute("alt", "classmate to guess");
@@ -215,13 +219,13 @@ const generateStudentToGuess = () => {
 	removeItemOnce(students, studentToGuess);
 
 	// Shuffle students to guess from so correct answer is different position every time
-	shuffleArray(studentsToGuessFrom);
+	shuffleArray(studentAlternatives);
 
 	// Clear buttonsEl before rendering new names
 	buttonsEl.innerHTML = "";
 
 	// Render buttons to HTML page with names of students
-	studentsToGuessFrom.forEach(student => {
+	studentAlternatives.forEach(student => {
 	buttonsEl.innerHTML += `<button class="button answer">${student.name}</button>`;
 })
 }
@@ -234,7 +238,6 @@ startGameEl.addEventListener('click', () => {
 buttonsEl.addEventListener('click', e => {
 	if (e.target.tagName === "BUTTON") {
 		if (e.target.innerText === studentToGuess.name) {
-			numberOfAnswers++;
 			correctGuesses.push(studentToGuess);
 		} else {
 			wrongGuesses.push(studentToGuess);
@@ -247,30 +250,24 @@ buttonsEl.addEventListener('click', e => {
 			imageHolderEl.setAttribute("alt", "");
 			buttonsEl.innerHTML = "";
 			startOverEl.style.display = "block";
-			if (numberOfAnswers === 10) {
+			if (correctGuesses.length === 10) {
 				imageHolderEl.setAttribute("src", "images/fireworks.jpg");
-				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${numberOfAnswers}/10! </h2>`;
-			} else if (numberOfAnswers < 10 && numberOfAnswers >= 6) {
+				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${correctGuesses.length}/10! </h2>`;
+			} else if (correctGuesses.length < 10 && correctGuesses.length >= 6) {
 				imageHolderEl.setAttribute("src", "images/decent.jpg");
-				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${numberOfAnswers}/10! </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${correctGuesses.length}/10! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
-				wrongGuesses.forEach(wrongGuess => {
-					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
-				})
-			} else if (numberOfAnswers < 6 && numberOfAnswers > 2) {
+				showWrongAnswers();
+			} else if (correctGuesses.length < 6 && correctGuesses.length > 2) {
 				imageHolderEl.setAttribute("src", "images/littlesad.jpg");
-				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${numberOfAnswers}/10! </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${correctGuesses.length}/10! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
-				wrongGuesses.forEach(wrongGuess => {
-					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
-				})
+				showWrongAnswers();
 			} else {
 				imageHolderEl.setAttribute("src", "images/sadface.jpg");
-				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${numberOfAnswers}/10. Du borde spela någon gång till. </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${amountOfGuesses}/10. Du borde spela någon gång till. </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
-				wrongGuesses.forEach(wrongGuess => {
-					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
-				})
+				showWrongAnswers();
 			}
 		}
 	}
@@ -283,7 +280,7 @@ startOverEl.addEventListener('click', () => {
 	rightOrWrongEl.innerHTML = "";
 	rightAnswerEl.innerHTML = "";
 	amountOfGuesses = 0;
-	numberOfAnswers = 0;
+	amountOfGuesses = 0;
 	guessedStudents = [];
 	correctGuesses = [];
 	wrongGuesses = [];
