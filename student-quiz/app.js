@@ -162,6 +162,7 @@ const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
 const rightOrWrongEl = document.querySelector("#rightOrWrong");
+const startOverEl = document.querySelector("#startOver");
 let displayWrongAnswers = document.querySelector("#wrong");
 let rightAnswerEl = document.querySelector("#rightAnswer");
 let numberOfAnswers = 0;
@@ -245,6 +246,7 @@ buttonsEl.addEventListener('click', e => {
 			imageHolderEl.setAttribute("src", "");
 			imageHolderEl.setAttribute("alt", "");
 			buttonsEl.innerHTML = "";
+			startOverEl.style.display = "block";
 			if (numberOfAnswers === 10) {
 				imageHolderEl.setAttribute("src", "images/fireworks.jpg");
 				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${numberOfAnswers}/10! </h2>`;
@@ -270,4 +272,16 @@ buttonsEl.addEventListener('click', e => {
 			}
 		}
 	}
+});
+
+startOverEl.addEventListener('click', () => {
+	generateStudentToGuess();
+	startOverEl.style.display = "none";
+	displayWrongAnswers.innerHTML = "";
+	rightOrWrongEl.innerHTML = "";
+	rightAnswerEl.innerHTML = "";
+	amountOfGuesses = 0;
+	guessedStudents = [];
+	correctGuesses = [];
+	wrongGuesses = [];
 });
