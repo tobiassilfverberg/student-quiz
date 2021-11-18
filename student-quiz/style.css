@@ -12,6 +12,7 @@ body {
     justify-content: center;
     flex-direction: column;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -70,7 +71,7 @@ ul {
 
 #startOver {
     height: 100px;
-    width: 200px;
+    width: 300px;
     background-color: yellow;
     font-family: 'Indie Flower', cursive;
     font-size: xx-large;

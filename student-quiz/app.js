@@ -157,7 +157,7 @@ const students = [
 	},
 ];
 
-// Declare objects from DOM
+// Declare objects from DOM and variables
 const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
@@ -165,10 +165,9 @@ const rightOrWrongEl = document.querySelector("#rightOrWrong");
 const startOverEl = document.querySelector("#startOver");
 let displayWrongAnswers = document.querySelector("#wrong");
 let rightAnswerEl = document.querySelector("#rightAnswer");
+let shuffledStudents = [...students];
 let studentToGuess;
 let guessedStudents = [];
-let correctGuesses = [];
-let wrongGuesses = [];
 let amountOfGuesses = 0;
 
 // Function to remove students from array "students" so you cant guess on the same person twice
@@ -182,41 +181,44 @@ const removeItemOnce = (array, value) => {
 
 // Function to display incorrect answers
 const showWrongAnswers = () => {
+	let wrongGuesses = guessedStudents.filter(student => student.answer === "wrong");
 	wrongGuesses.forEach(wrongGuess => {
 		wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
 	})
 };
 
-const generateStudentToGuess = () => {
-	// Clone original array to make a copy array
-	let shuffledStudents =[...students];
+// Function to find out amount of correct answers
+const showCorrectAnswers = () => {
+	let correctGuesses = guessedStudents.filter(student => student.answer === "correct");
+	return correctGuesses;
+};
 
-	// Fisher-Yates shuffle function
-	const shuffleArray = array => {
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			const temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-		}
+// Fisher-Yates shuffle function
+const shuffleArray = array => {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		const temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
 	}
+};
+
+// Function to generate the student you should guess
+const generateStudentToGuess = () => {
 	// Shuffle the array
 	shuffleArray(shuffledStudents);
 
 	// Create small array of four students 
 	let studentAlternatives = shuffledStudents.slice(0, 4).map(students => students);
 
-	// Take out one single person to display and guess their name
+	// Take out one single person to display and guess their name and add image to html
 	studentToGuess = studentAlternatives[0];
 	imageHolderEl.style.display = "block";
 	imageHolderEl.setAttribute("src", studentToGuess.image);
 	imageHolderEl.setAttribute("alt", "classmate to guess");
-	
-	// Create array with all the students I guessed so far
-	guessedStudents.push(studentToGuess);
 
 	// Call function remove to remove studentToGuess from original array students
-	removeItemOnce(students, studentToGuess);
+	removeItemOnce(shuffledStudents, studentToGuess);
 
 	// Shuffle students to guess from so correct answer is different position every time
 	shuffleArray(studentAlternatives);
@@ -228,44 +230,61 @@ const generateStudentToGuess = () => {
 	studentAlternatives.forEach(student => {
 	buttonsEl.innerHTML += `<button class="button answer">${student.name}</button>`;
 })
-}
+};
 
+// Click event to start the game
 startGameEl.addEventListener('click', () => {
 	generateStudentToGuess();
 	startGameEl.style.display = "none";
 });
 
+// Click event for the buttons which you use for guessing on the students displayed
 buttonsEl.addEventListener('click', e => {
+	// Control so you clicked on a button
 	if (e.target.tagName === "BUTTON") {
+		// Check if you guess is right
 		if (e.target.innerText === studentToGuess.name) {
-			correctGuesses.push(studentToGuess);
+			// Add value "correct" to student object
+			studentToGuess.answer = "correct";
+			// Push the student you guessed on with its new value to array of the students displayed
+			guessedStudents.push(studentToGuess);
 		} else {
-			wrongGuesses.push(studentToGuess);
+			// If guess is wrong, add value "wrong" and push to array of students 
+			studentToGuess.answer = "wrong";
+			guessedStudents.push(studentToGuess);
 		}
+		// Increase amount of guesses
 		amountOfGuesses++;
+		// If you have not guessed 10 times already, generate new student to guess
 		if (amountOfGuesses < 10) {
 			generateStudentToGuess();
 		} else {
+			// If you guessed 10 times, clear image and buttonsEl and show button start over
 			imageHolderEl.setAttribute("src", "");
 			imageHolderEl.setAttribute("alt", "");
 			buttonsEl.innerHTML = "";
 			startOverEl.style.display = "block";
-			if (correctGuesses.length === 10) {
+			// also show scores
+			if (showCorrectAnswers().length === 10) {
+				// If the amount of correct answers === 10, add firework image, and show amount of correct answers
 				imageHolderEl.setAttribute("src", "images/fireworks.jpg");
-				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${correctGuesses.length}/10! </h2>`;
-			} else if (correctGuesses.length < 10 && correctGuesses.length >= 6) {
+				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${showCorrectAnswers().length}/${guessedStudents.length}! </h2>`;
+			} else if (showCorrectAnswers().length < 10 && showCorrectAnswers().length >= 6) {
+				// If correct answers is < 10 and > 6 show image, amount of correct answers and the wrong names
 				imageHolderEl.setAttribute("src", "images/decent.jpg");
-				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${correctGuesses.length}/10! </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${showCorrectAnswers().length}/${guessedStudents.length}! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
 				showWrongAnswers();
-			} else if (correctGuesses.length < 6 && correctGuesses.length > 2) {
+			} else if (showCorrectAnswers().length < 6 && showCorrectAnswers().length > 2) {
+				// If correct answers is < 6 and > 2 show image, amount of correct answers and the wrong names
 				imageHolderEl.setAttribute("src", "images/littlesad.jpg");
-				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${correctGuesses.length}/10! </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${showCorrectAnswers().length}/${guessedStudents.length}! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
 				showWrongAnswers();
 			} else {
+				// Else, show image, text and wrong answers
 				imageHolderEl.setAttribute("src", "images/sadface.jpg");
-				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${amountOfGuesses}/10. Du borde spela någon gång till. </h2>`;
+				rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${showCorrectAnswers().length}/${guessedStudents.length}. Du borde spela någon gång till. </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
 				showWrongAnswers();
 			}
@@ -273,15 +292,17 @@ buttonsEl.addEventListener('click', e => {
 	}
 });
 
+// Event listener for start over button
 startOverEl.addEventListener('click', () => {
+	// Set shuffle array to full array again
+	shuffledStudents = [...students];
+	// Generate new student to guess on
 	generateStudentToGuess();
+	// Hide start over button, clear output fields, and reset variables
 	startOverEl.style.display = "none";
 	displayWrongAnswers.innerHTML = "";
 	rightOrWrongEl.innerHTML = "";
 	rightAnswerEl.innerHTML = "";
 	amountOfGuesses = 0;
-	amountOfGuesses = 0;
 	guessedStudents = [];
-	correctGuesses = [];
-	wrongGuesses = [];
 });
