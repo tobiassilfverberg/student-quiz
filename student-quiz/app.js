@@ -250,13 +250,15 @@ buttonsEl.addEventListener('click', e => {
 			if (numberOfAnswers === 10) {
 				imageHolderEl.setAttribute("src", "images/fireworks.jpg");
 				rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${numberOfAnswers}/10! </h2>`;
-			} else if (numberOfAnswers < 10 && numberOfAnswers > 6) {
+			} else if (numberOfAnswers < 10 && numberOfAnswers >= 6) {
+				imageHolderEl.setAttribute("src", "images/decent.jpg");
 				rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${numberOfAnswers}/10! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
 				wrongGuesses.forEach(wrongGuess => {
 					wrong.innerHTML += `<li>${wrongGuess.name}</li>`;
 				})
 			} else if (numberOfAnswers < 6 && numberOfAnswers > 2) {
+				imageHolderEl.setAttribute("src", "images/littlesad.jpg");
 				rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${numberOfAnswers}/10! </h2>`;
 				rightOrWrongEl.innerHTML += `<h3>Du gissade fel på</h3>`;
 				wrongGuesses.forEach(wrongGuess => {
@@ -281,6 +283,7 @@ startOverEl.addEventListener('click', () => {
 	rightOrWrongEl.innerHTML = "";
 	rightAnswerEl.innerHTML = "";
 	amountOfGuesses = 0;
+	numberOfAnswers = 0;
 	guessedStudents = [];
 	correctGuesses = [];
 	wrongGuesses = [];
