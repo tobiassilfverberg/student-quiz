@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz - Guess Your Classmate</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>Guess your classmate!</h1>
 
     <button id="startGame">Press here to start game!</button>
 
-    <img src="" alt="" id="classmateImg">
+    <img src="" alt="" id="classmateImg" />
+    <img src="" alt="" id="celebrationImg" />
 
-    <div id="buttons">
-    </div>
+    <div id="buttons"></div>
 
     <div id="rightAnswer"></div>
 
-    <div id="rightOrWrong"></div>
+    <div id="highscore"></div>
 
-    <ul id="wrong"></ul>
+    <!-- <div id="rightOrWrong"></div> -->
+
+    <div id="nameHolder">
+      <div id="answerHolder">
+        <div id="rightNamesCaption"></div>
+        <ul id="rightNames"></ul>
+      </div>
+      <div id="answerHolder">
+        <div id="wrongNamesCaption"></div>
+        <ul id="wrongNames"></ul>
+      </div>
+    </div>
 
     <button id="startOver">Press here to start a new game!</button>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
