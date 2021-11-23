@@ -163,6 +163,8 @@ const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
 const rightOrWrongEl = document.querySelector("#rightOrWrong");
 const startOverEl = document.querySelector("#startOver");
+let gameDiv = document.querySelector("#game");
+let answersDiv = document.querySelector("#answers");
 let wrongAnswersUlEl = document.querySelector("#wrongNames");
 let rightAnswersUlEl = document.querySelector("#rightNames");
 let rightNamesCaption = document.querySelector("#rightNamesCaption");
@@ -190,7 +192,7 @@ const displayWrongAnswers = () => {
     (student) => student.answer === "wrong"
   );
   wrongGuesses.forEach((wrongGuess) => {
-    wrongAnswersUlEl.innerHTML += `<li>${wrongGuess.name}</li>`;
+    wrongAnswersUlEl.innerHTML += `<li><p>${wrongGuess.name}</p> <img src="${wrongGuess.image}"></li>`;
   });
 };
 
@@ -200,7 +202,7 @@ const displayCorrectAnswers = () => {
     (student) => student.answer === "correct"
   );
   correctGuesses.forEach((correctGuess) => {
-    rightAnswersUlEl.innerHTML += `<li>${correctGuess.name}</li>`;
+    rightAnswersUlEl.innerHTML += `<li> <p>${correctGuess.name}</p> <img src="${correctGuess.image}"></li>`;
   });
 };
 
@@ -255,6 +257,7 @@ const generateStudentToGuess = () => {
 
 // Click event to start the game
 startGameEl.addEventListener("click", () => {
+  gameDiv.classList.remove("hide");
   generateStudentToGuess();
   startGameEl.style.display = "none";
 });
@@ -281,10 +284,11 @@ buttonsEl.addEventListener("click", (e) => {
       generateStudentToGuess();
     } else {
       // If you guessed 10 times, clear image and buttonsEl and show button start over
+      answersDiv.classList.remove("hide");
       imageHolderEl.style.display = "none";
       imageHolderEl.style.display = "none";
       buttonsEl.innerHTML = "";
-      startOverEl.style.display = "block";
+      startOverEl.classList.remove("hide");
       // also show scores
       if (showCorrectAnswers().length === 10) {
         // If the amount of correct answers === 10, add firework image, and show amount of correct answers
@@ -326,13 +330,13 @@ buttonsEl.addEventListener("click", (e) => {
         displayCorrectAnswers();
       }
       if (!highscore) highscore = showCorrectAnswers().length;
-      highscoreEl.innerHTML = `Första gången du spelade, ditt highscore efter den runda är: ${highscore}`;
+      highscoreEl.innerHTML = `<p> Första gången du spelade, ditt highscore efter den runda är: ${highscore}</p>`;
       if (highscore < showCorrectAnswers().length) {
         highscore = showCorrectAnswers().length;
-        highscoreEl.innerHTML = `Ojojoj, inte illa. Nytt highscore! Ditt nya highscore är: ${highscore}`;
+        highscoreEl.innerHTML = `<p> Ojojoj, inte illa. Nytt highscore! Ditt nya highscore är: ${highscore} </p>`;
       }
       if (highscore > showCorrectAnswers().length) {
-        highscoreEl.innerHTML = `Tyvärr inget nytt highscore denna gången. Ditt highscore är: ${highscore}`;
+        highscoreEl.innerHTML = `<p> Tyvärr inget nytt highscore denna gången. Ditt highscore är: ${highscore} </p>`;
       }
     }
   }
@@ -345,7 +349,8 @@ startOverEl.addEventListener("click", () => {
   // Generate new student to guess on
   generateStudentToGuess();
   // Hide start over button, clear output fields, and reset variables
-  startOverEl.style.display = "none";
+  startOverEl.classList.add("hide");
+  answersDiv.classList.add("hide");
   wrongAnswersUlEl.innerHTML = "";
   rightAnswersUlEl.innerHTML = "";
   rightNamesCaption.innerHTML = "";
