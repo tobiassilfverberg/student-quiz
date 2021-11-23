@@ -282,15 +282,13 @@ buttonsEl.addEventListener("click", (e) => {
       generateStudentToGuess();
     } else {
       // If you guessed 10 times, clear image and buttonsEl and show button start over
-      imageHolderEl.setAttribute("src", "");
-      imageHolderEl.setAttribute("alt", "");
+      imageHolderEl.style.display = "none";
+      imageHolderEl.style.display = "none";
       buttonsEl.innerHTML = "";
       startOverEl.style.display = "block";
       // also show scores
       if (showCorrectAnswers().length === 10) {
         // If the amount of correct answers === 10, add firework image, and show amount of correct answers
-        celebrationImageEl.style.display = "block";
-        celebrationImageEl.setAttribute("src", "images/fireworks.jpg");
         rightAnswerEl.innerHTML += `<h2> Grattis, du fick alla rätt! ${
           showCorrectAnswers().length
         }/${guessedStudents.length}! </h2>`;
@@ -299,8 +297,6 @@ buttonsEl.addEventListener("click", (e) => {
         showCorrectAnswers().length >= 6
       ) {
         // If correct answers is < 10 and > 6 show image, amount of correct answers and the wrong names
-        celebrationImageEl.style.display = "block";
-        celebrationImageEl.setAttribute("src", "images/decent.jpg");
         rightAnswerEl.innerHTML += `<h2> Helt okej, du fick ${
           showCorrectAnswers().length
         }/${guessedStudents.length}! </h2>`;
@@ -313,8 +309,6 @@ buttonsEl.addEventListener("click", (e) => {
         showCorrectAnswers().length > 2
       ) {
         // If correct answers is < 6 and > 2 show image, amount of correct answers and the wrong names
-        celebrationImageEl.style.display = "block";
-        celebrationImageEl.setAttribute("src", "images/littlesad.jpg");
         rightAnswerEl.innerHTML += `<h2> Nja, inte riktigt godkänt, du fick ${
           showCorrectAnswers().length
         }/${guessedStudents.length}! </h2>`;
@@ -324,8 +318,6 @@ buttonsEl.addEventListener("click", (e) => {
         displayCorrectAnswers();
       } else {
         // Else, show image, text and wrong answers
-        celebrationImageEl.style.display = "block";
-        celebrationImageEl.setAttribute("src", "images/sadface.jpg");
         rightAnswerEl.innerHTML += `<h2> Du är tyvärr ganska dålig. Du fick ${
           showCorrectAnswers().length
         }/${guessedStudents.length}. Du borde spela någon gång till. </h2>`;
