@@ -160,7 +160,6 @@ const students = [
 // Declare objects from DOM and variables
 const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
-const celebrationImageEl = document.querySelector("#celebrationImg");
 const buttonsEl = document.querySelector("#buttons");
 const rightOrWrongEl = document.querySelector("#rightOrWrong");
 const startOverEl = document.querySelector("#startOver");
@@ -347,7 +346,6 @@ startOverEl.addEventListener("click", () => {
   generateStudentToGuess();
   // Hide start over button, clear output fields, and reset variables
   startOverEl.style.display = "none";
-  celebrationImageEl.style.display = "none";
   wrongAnswersUlEl.innerHTML = "";
   rightAnswersUlEl.innerHTML = "";
   rightNamesCaption.innerHTML = "";
