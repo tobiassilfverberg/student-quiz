@@ -161,6 +161,7 @@ const students = [
 const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
+const startOverEl = document.querySelector("#startOver");
 let gameDiv = document.querySelector("#game");
 let answersDiv = document.querySelector("#answers");
 let wrongAnswersUlEl = document.querySelector("#wrongNames");
