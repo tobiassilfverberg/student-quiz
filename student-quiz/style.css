@@ -7,6 +7,7 @@
 body {
   height: 100%;
   width: 100%;
+  text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;
 }
@@ -31,11 +32,20 @@ h1 {
 img {
   height: auto;
   max-width: 100%;
+  padding: 5px;
 }
 
 #classmateImg {
   margin-bottom: 20px;
   display: none;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -52,13 +62,6 @@ img {
 .button:hover {
   box-shadow: 0px 0px 10px grey;
 }
-
-/* #buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-direction: column;
-} */
 
 ul {
   text-align: center;
@@ -77,12 +80,7 @@ p {
   margin-top: 20px;
 }
 
-#rightOrWrong {
-  margin: 20px;
-}
-
 #nameHolder {
-  /* display: flex; */
   margin: 15px;
 }
 
@@ -91,14 +89,13 @@ p {
 }
 
 #answerHolder {
-  /* display: flex;
-  flex-direction: column; */
   padding: 10px;
 }
 
 #startOver {
   height: 100px;
   width: 300px;
+  margin-bottom: 15px;
   background-color: yellow;
   font-family: "Indie Flower", cursive;
   font-size: xx-large;
@@ -109,19 +106,19 @@ li {
   list-style-type: none;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 576px) {
   body {
     padding: 5px;
-    text-align: center;
   }
-  /* #buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
+
+  #buttons {
+    flex-direction: row;
+  }
+
   #buttons > button {
     margin: 10px 10px 10px 10px;
   }
+
   #nameHolder {
     flex-direction: column;
   }
@@ -132,6 +129,7 @@ li {
     flex-wrap: wrap;
     flex-direction: row;
   }
+
   .button {
     width: 175px;
   }

@@ -161,8 +161,6 @@ const students = [
 const startGameEl = document.querySelector("#startGame");
 const imageHolderEl = document.querySelector("#classmateImg");
 const buttonsEl = document.querySelector("#buttons");
-const rightOrWrongEl = document.querySelector("#rightOrWrong");
-const startOverEl = document.querySelector("#startOver");
 let gameDiv = document.querySelector("#game");
 let answersDiv = document.querySelector("#answers");
 let wrongAnswersUlEl = document.querySelector("#wrongNames");
@@ -192,7 +190,7 @@ const displayWrongAnswers = () => {
     (student) => student.answer === "wrong"
   );
   wrongGuesses.forEach((wrongGuess) => {
-    wrongAnswersUlEl.innerHTML += `<li><p>${wrongGuess.name}</p> <img src="${wrongGuess.image}"></li>`;
+    wrongAnswersUlEl.innerHTML += `<li> <p>${wrongGuess.name}</p> <img src="${wrongGuess.image}"></li>`;
   });
 };
 
@@ -288,7 +286,6 @@ buttonsEl.addEventListener("click", (e) => {
       imageHolderEl.style.display = "none";
       imageHolderEl.style.display = "none";
       buttonsEl.innerHTML = "";
-      startOverEl.classList.remove("hide");
       // also show scores
       if (showCorrectAnswers().length === 10) {
         // If the amount of correct answers === 10, add firework image, and show amount of correct answers
@@ -349,7 +346,6 @@ startOverEl.addEventListener("click", () => {
   // Generate new student to guess on
   generateStudentToGuess();
   // Hide start over button, clear output fields, and reset variables
-  startOverEl.classList.add("hide");
   answersDiv.classList.add("hide");
   wrongAnswersUlEl.innerHTML = "";
   rightAnswersUlEl.innerHTML = "";
