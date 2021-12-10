@@ -10,3 +10,10 @@ blå: rgb(40.25.255)
 orange: rgb(255.95.10)
 
 */
+
+/* General styles  */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
