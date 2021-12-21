@@ -13,102 +13,460 @@ orange: rgb(255, 95, 10)
 
 /* General styles  */
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-family: sofia-pro, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-family: sofia-pro, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  overflow-x: hidden;
 }
 
 h1 h2 h3 h4 h5 h6 {
-    font-family: sofia-pro,sans-serif;
-    font-weight: 700;
-    font-style: normal;
+  font-family: sofia-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
+/* Styles for main content  */
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.landingPage {
+  background-image: url("assets/landing-page-background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .titleHeader {
-    height: 60px;
+  margin-left: 15px;
+  height: 60px;
 }
 
 .showMenuBtn {
-    padding: 5px;
-    width: 75px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 15px;
-}
-
-nav {
-    width: 80%;
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  font-size: x-large;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .topNav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    list-style-type: none;
-    text-decoration: none;
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  list-style-type: none;
+  text-decoration: none;
+  margin-top: 20px;
+  margin-right: 15px;
+  border-radius: 10px;
+  background-color: rgba(135, 10, 160, 0.4);
+  padding: 5px;
 }
 
 .topNav li {
-    padding: 1px;
+  padding: 1px;
 }
 
 .links {
-    color: rgb(250, 25, 150);
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .links:hover {
-    color: rgb(135, 10, 160);
+  color: rgba(250, 25, 150, 0.9);
+}
+
+.banner {
+  position: sticky;
+  bottom: 0;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(135, 10, 160, 0.4);
+  margin-top: -5px;
+}
+
+.banner > h4 {
+  text-align: center;
+  width: 70%;
+}
+
+.applyBtn {
+  background-color: white;
+  border: 3px solid rgb(250, 25, 150);
+  border-radius: 25px;
+  padding: 5px;
+  margin: 10px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 1.1rem;
+}
+
+.applyBtn > a {
+  text-decoration: none;
+  color: rgb(250, 25, 150);
+}
+
+.applyBtn > a:hover {
+  color: rgb(135, 10, 160);
+}
+
+.interest {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.ourOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  background-color: rgb(35, 195, 255);
+  margin-top: 10px;
+}
+
+.optionText {
+  width: 50%;
+  text-align: center;
+  padding: 2%;
+}
+
+.optionImg {
+  width: 50%;
+  padding: 5px;
+}
+
+.optionImg > img {
+  height: auto;
+  max-width: 100%;
+  border-radius: 15px;
+}
+
+.option:nth-child(2) {
+  flex-direction: row-reverse;
+}
+
+.elements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.firstSocialProofing {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.firstSocialProofing > img {
+  width: 100%;
+}
+
+.infoText {
+  position: absolute;
+  width: 40%;
+  color: white;
+  text-align: center;
+}
+
+.ourProcess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin-top: 20px;
+}
+
+.ourProcess > img {
+  width: 100%;
+}
+
+.mainUSP {
+  width: 90%;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.whyUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container > img {
+  height: auto;
+  max-width: 100%;
+}
+
+.expert > img {
+  height: auto;
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+}
+
+.ctaBtn {
+  background-color: white;
+  border: 3px solid rgb(250, 25, 150);
+  border-radius: 25px;
+  padding: 5px;
+  margin-top: 20px;
+  font-family: sofia-pro, sans-serif;
+  font-size: 1.1rem;
+}
+
+.ctaBtn > a {
+  text-decoration: underline;
+  color: rgb(250, 25, 150);
+}
+
+.ctaBtn > a:hover {
+  color: rgb(135, 10, 160);
+}
+
+.saidAboutUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 30%;
+  background-color: rgba(250, 25, 150, 0.3);
+  border-radius: 15px;
+  margin-top: 15px;
+}
+
+.card > img {
+  height: auto;
+  max-width: 100%;
+  padding: 10px;
+}
+
+.card > p {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+footer {
+  margin-top: 15px;
+  background-color: black;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > a {
+  color: white;
+  text-decoration: none;
+
+}
+
+footer > a:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 767px) {
-    
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-    .hide {
-        display: block;
-    }
-    .showMenuBtn {
-        display: none;
-    }
-    .topNav {
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 10px;
-    }
+  .hide {
+    display: block;
+  }
+  .showMenuBtn {
+    display: none;
+  }
+  .topNav {
+    position: unset;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0px;
+  }
+  .links {
+    padding: 5px;
+  }
+  .interest {
+    width: 100%;
+  }
+  .ourOptions {
+    flex-direction: row;
+  }
+  .option {
+    margin: 10px;
+    flex-direction: column;
+  }
+  .option:nth-child(2) {
+    flex-direction: column;
+  }
+  .optionText {
+    width: 90%
+  }
+  .optionImg {
+    width: 90%;
+  }
+  .elements {
+    width: 90%;
+    flex-direction: row;
+  }
+  .firstSocialProofing {
+    width: 50%;
+  }
+  .ourProcess {
+    width: 50%;
+  }
+  .infoText {
+    width: 30%;
+  }
+  .whyUs {
+  flex-direction: row;
+  }
+  .whyUs > img {
+    max-width: 30%;
+  }
+  .expert > img {
+    max-width: 100%;
+  }
+  .container {
+    padding: 10px;
+  }
+  .saidAboutUs {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  .card {
+    margin: 5px;
+  }
+  footer {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .hide {
-        display: block;
-    }
-    .showMenuBtn {
-        display: none;
-    }
-    .topNav {
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 10px;
-    }
+  .hide {
+    display: block;
+  }
+  .showMenuBtn {
+    display: none;
+  }
+  .topNav {
+    position: unset;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0px;
+  }
+  .links {
+    padding: 5px;
+  }
+  .interest {
+    width: 100%;
+  }
+  .ourOptions {
+    flex-direction: row;
+  }
+  .option {
+    margin: 10px;
+    flex-direction: column;
+  }
+  .optionText {
+    width: 90%
+  }
+  .optionImg {
+    width: 90%;
+  }
+  .option:nth-child(2) {
+    flex-direction: column;
+  }
+  .elements {
+    width: 90%;
+    flex-direction: row;
+  }
+  .firstSocialProofing {
+    width: 50%;
+  }
+  .ourProcess {
+    width: 50%;
+  }
+  .infoText {
+    width: 30%;
+  }
+  .whyUs {
+    flex-direction: row;
+  }
+  .whyUs > img {
+    max-width: 30%;
+  }
+  .expert > img {
+    max-width: 100%;
+  }
+  .container {
+    padding: 10px;
+  }
+  .saidAboutUs {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  .card {
+    margin: 5px;
+  }
+  footer {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
